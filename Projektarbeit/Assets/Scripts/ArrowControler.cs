@@ -19,7 +19,11 @@ public class ArrowControler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        launcher();
+         if (Input.GetKeyDown(KeyCode.L))
+        {
+            launchspeed=launchspeed*2;
+            Debug.Log(launchspeed);
+        }
         forwardInput = Input.GetAxis("Horizontal");
         transform.Rotate(Vector3.up*Time.deltaTime*speed*forwardInput);
         winkelInput = Input.GetAxis("Vertical");
@@ -35,13 +39,6 @@ public class ArrowControler : MonoBehaviour
         }
     
     }
-    public void launcher()
-    {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            launchspeed=launchspeed*2;
-            Debug.Log(launchspeed);
-        }
-
-    }
+    
+    
 }
