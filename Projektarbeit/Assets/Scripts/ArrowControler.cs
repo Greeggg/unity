@@ -5,22 +5,43 @@ using UnityEngine;
 public class ArrowControler : MonoBehaviour
 {
     private float speed=10.0f;
+    private float launchspeed=100.0f;
     private float forwardInput;
     private float winkelInput;
-
+    private Rigidbody playerRb;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerRb=GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        launcher();
         forwardInput = Input.GetAxis("Horizontal");
-        transform.Translate(Vector3.forward*Time.deltaTime*speed*forwardInput);
+        transform.Rotate(Vector3.up*Time.deltaTime*speed*forwardInput);
         winkelInput = Input.GetAxis("Vertical");
-        transform.Translate(Vector3.up*Time.deltaTime*speed*winkelInput);
+        transform.Rotate(Vector3.forward*Time.deltaTime*speed*winkelInput);
+        launch();
+        
+    }
+    private void launch()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            playerRb.AddForce(playerRb.transform.forward*launchspeed);
+        }
+    
+    }
+    public void launcher()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            launchspeed=launchspeed*2;
+            Debug.Log(launchspeed);
+        }
+
     }
 }
