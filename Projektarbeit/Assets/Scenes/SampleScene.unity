@@ -935,7 +935,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 170272754517248206, guid: 7f6531985836a73439ab4c3e8814861e, type: 3}
       propertyPath: gravity
-      value: 100
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 170272754517248206, guid: 7f6531985836a73439ab4c3e8814861e, type: 3}
       propertyPath: launchspeed
