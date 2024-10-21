@@ -13,8 +13,7 @@ public class ArrowControler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerRb=GetComponent<Rigidbody>();
-       
+        playerRb=GetComponent<Rigidbody>();  
     }
 
     // Update is called once per frame
@@ -35,7 +34,7 @@ public class ArrowControler : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            playerRb.AddForce(transform.forward*launchspeed);
+            playerRb.AddForce(transform.position*launchspeed,ForceMode.Impulse);
             
         }
     
