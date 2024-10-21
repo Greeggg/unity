@@ -14,6 +14,7 @@ public class ArrowControler : MonoBehaviour
     void Start()
     {
         playerRb=GetComponent<Rigidbody>();
+       
     }
 
     // Update is called once per frame
@@ -21,8 +22,7 @@ public class ArrowControler : MonoBehaviour
     {
          if (Input.GetKeyDown(KeyCode.L))
         {
-            launchspeed=launchspeed*2;
-            Debug.Log(launchspeed);
+            launchspeed=launchspeed*1.1f;
         }
         forwardInput = Input.GetAxis("Horizontal");
         transform.Rotate(Vector3.up*Time.deltaTime*speed*forwardInput);
@@ -35,7 +35,8 @@ public class ArrowControler : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            playerRb.AddForce(playerRb.transform.forward*launchspeed);
+            playerRb.AddForce(transform.forward*launchspeed);
+            
         }
     
     }
