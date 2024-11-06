@@ -11,17 +11,29 @@ public class GuiManager : MonoBehaviour
     public Button tryagainbutton;
     public Button pausebutton;
     public Button continuebutton;
+    public Button infobutton;
+    public Button closebutton;
+    public Button infobuttondg;
+    public Button closebuttondg;
+
     public GameObject titleScreen;
     public GameObject duringGameScreen;
     public GameObject gameOverScreen;
+    public GameObject infoPanel;
+    public GameObject infoPaneldg;
 
     private bool isPaused = false;
+    private bool isInGame = false;
+
     void StartGame()
     {
         titleScreen.gameObject.SetActive(false);
         gameOverScreen.gameObject.SetActive(false);
         duringGameScreen.gameObject.SetActive(true);
+        infoPanel.gameObject.SetActive(false);
+        infoPaneldg.gameObject.SetActive(false);
         continuebutton.gameObject.SetActive(false);
+        isInGame = true;
         Time.timeScale = 1;
 
     }
@@ -30,6 +42,7 @@ public class GuiManager : MonoBehaviour
     {
         duringGameScreen.gameObject.SetActive(false);
         titleScreen.gameObject.SetActive(true);
+        isInGame = false;
         Time.timeScale = 1;
     }
 
@@ -37,7 +50,44 @@ public class GuiManager : MonoBehaviour
     {
         gameOverScreen.gameObject.SetActive(false);
         titleScreen.gameObject.SetActive(true);
+        isInGame = false;
         Time.timeScale = 1;
+    }
+
+void InfoScreen()
+    {
+        if (isInGame)
+        {
+            infoPaneldg.gameObject.SetActive(true);
+            infobuttondg.gameObject.SetActive(false);
+            Time.timeScale = 0;
+            pausebutton.gameObject.SetActive(false);
+            exitbutton.gameObject.SetActive(false);
+            isPaused = true;
+        }
+        else
+        {
+            infobutton.gameObject.SetActive(false);
+            infoPanel.gameObject.SetActive(true);
+        }
+    }
+
+    void CloseInfoScreen()
+    {
+        if (isInGame)
+        {
+            infoPaneldg.gameObject.SetActive(false);
+            infobuttondg.gameObject.SetActive(true);
+            Time.timeScale = 1;
+            pausebutton.gameObject.SetActive(true);
+            exitbutton.gameObject.SetActive(true);
+            isPaused = false;
+        }
+        else
+        {
+            infobutton.gameObject.SetActive(true);
+            infoPanel.gameObject.SetActive(false);
+        }
     }
 
     void PauseGame()
@@ -62,6 +112,7 @@ public class GuiManager : MonoBehaviour
     {
         gameOverScreen.gameObject.SetActive(false);
         duringGameScreen.gameObject.SetActive(true);
+        isInGame = true;
     }
 
 
@@ -72,6 +123,8 @@ public class GuiManager : MonoBehaviour
     void Start()
     {
         titleScreen.gameObject.SetActive(true);
+        infoPanel.gameObject.SetActive(false);
+        infoPaneldg.gameObject.SetActive(false);
         duringGameScreen.gameObject.SetActive(false);
         gameOverScreen.gameObject.SetActive(false);
 
@@ -90,6 +143,18 @@ public class GuiManager : MonoBehaviour
         pausebutton = pausebutton.GetComponent<Button>();
         pausebutton.onClick.AddListener(PauseGame);
 
+        infobutton = infobutton.GetComponent<Button>();
+        infobutton.onClick.AddListener(InfoScreen);
+
+        closebutton = closebutton.GetComponent<Button>();
+        closebutton.onClick.AddListener(CloseInfoScreen);
+
+        infobuttondg = infobuttondg.GetComponent<Button>();
+        infobuttondg.onClick.AddListener(InfoScreen);
+
+        closebuttondg = closebuttondg.GetComponent<Button>();
+        closebuttondg.onClick.AddListener(CloseInfoScreen);
+
         continuebutton = continuebutton.GetComponent<Button>();
         continuebutton.onClick.AddListener(ContinueGame);
         continuebutton.gameObject.SetActive(false);
@@ -99,5 +164,5 @@ public class GuiManager : MonoBehaviour
     {
         
     }
-    
+
 }
