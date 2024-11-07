@@ -23,6 +23,8 @@ public class ArrowControler : MonoBehaviour
     public  float stärke = 50;
     public GameObject arrow;
     private float center;
+    private float  boarder = 750.0f;
+   
 
     void Start()
     {
@@ -31,6 +33,7 @@ public class ArrowControler : MonoBehaviour
         swim=false;
         //arrow.transform.Rotate(0,0,90, Space.Self);
         center= Screen.width * 0.5f;
+     
         
     }
  
@@ -43,19 +46,20 @@ public class ArrowControler : MonoBehaviour
         float moveY = Input.GetAxis("Vertical");
         Vector3 movement = new Vector3(moveX, moveY, 0) * turnspeed * Time.deltaTime;
         cursor.transform.position += movement;
-
+        
         if(swim)
         {
             mouseX =  Input.mousePosition.x;
             
-        if( mouseX > center)
+        if( mouseX > center )
         {
             rightleft= stärke;
         }
         
-        if( mouseX < center)
+        if( mouseX < center  )
         {
             rightleft= -stärke;
+           
         }
             direct = new Vector3(1,0,0);
         }
@@ -77,6 +81,9 @@ public class ArrowControler : MonoBehaviour
         rb.AddForce(kraft*gravity);
         rb.AddForce(direct * rightleft);
         }
+       
+
+        
     }
 
 }
