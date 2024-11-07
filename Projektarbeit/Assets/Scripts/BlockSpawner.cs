@@ -17,8 +17,15 @@ public class BlockSpawner : MonoBehaviour
         SpawnBlocks();
     }
 
-    void SpawnBlocks()
+    public void SpawnBlocks()
+
     {
+        foreach (var block in spawnedBlocks)
+        {
+            Destroy(block);
+        }
+        spawnedBlocks.Clear(); 
+
         int spawnedCount = 0;
         int maxAttempts = numberOfBlocks * 10;
         int attempts = 0;
