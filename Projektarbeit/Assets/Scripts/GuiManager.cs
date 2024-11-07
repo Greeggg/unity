@@ -27,10 +27,10 @@ public class GuiManager : MonoBehaviour
     public Vector3 startPosition;
 
     public Collisions collisionsScript; 
+    public ArrowControler arrowScript;
 
     private bool isPaused = false;
     private bool isInGame = false;
-    private bool canLaunch = false;
 
     void StartGame()
     {
@@ -44,14 +44,20 @@ public class GuiManager : MonoBehaviour
         infoPaneldg.gameObject.SetActive(false);
         continuebutton.gameObject.SetActive(false);
         isInGame = true;
-        canLaunch = true;
         Time.timeScale = 1;
     }
 
     void ExitFunction()
     {
+        arrowScript.swim = false;
         playerRb.transform.position = startPosition;
         playerRb.transform.rotation = Quaternion.identity;
+
+        playerRb.velocity = Vector3.zero;  
+        playerRb.angularVelocity = Vector3.zero; 
+
+        collisionsScript.counter = 0;
+        collisionsScript.UpdateCounterText();
 
         duringGameScreen.gameObject.SetActive(false);
         titleScreen.gameObject.SetActive(true);
@@ -129,16 +135,16 @@ public class GuiManager : MonoBehaviour
 
     void RestartGame()
     {
+        arrowScript.swim = false;
+
         playerRb.transform.position = startPosition;
         playerRb.transform.rotation = Quaternion.identity;
 
-        playerRb.velocity = Vector3.zero;
-        playerRb.angularVelocity = Vector3.zero;
+        playerRb.velocity = Vector3.zero;  
+        playerRb.angularVelocity = Vector3.zero; 
 
         collisionsScript.counter = 0;
         collisionsScript.UpdateCounterText();
-
-        canLaunch = true;
 
 
         gameOverScreen.gameObject.SetActive(false);
@@ -153,6 +159,7 @@ public class GuiManager : MonoBehaviour
         playerRb = GameObject.Find("Arr").GetComponent<Rigidbody>();
         startPosition = playerRb.transform.position; 
         collisionsScript = GameObject.Find("Arr").GetComponent<Collisions>();
+        arrowScript = GameObject.Find("Arr").GetComponent<ArrowControler>();
 
         titleScreen.gameObject.SetActive(true);
         infoPanel.gameObject.SetActive(false);

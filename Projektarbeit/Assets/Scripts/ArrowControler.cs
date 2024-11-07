@@ -12,7 +12,7 @@ public class ArrowControler : MonoBehaviour
     float forceControl;
     private Vector3 pos ;
     private GameObject direction;
-    private bool swim;
+    public bool swim;
     public GameObject cursor;
     public float gravity = 0.1f;
     private Vector3 kraft;
@@ -35,48 +35,48 @@ public class ArrowControler : MonoBehaviour
     }
  
     // Update is called once per frame
-    void Update()
+void Update()
+{
+
+    if (Input.GetKeyDown(KeyCode.Space))
     {
-        
-
-        float moveX = Input.GetAxis("Horizontal"); // Left (-1) and Right (+1)
-        float moveY = Input.GetAxis("Vertical");
-        Vector3 movement = new Vector3(moveX, moveY, 0) * turnspeed * Time.deltaTime;
-        cursor.transform.position += movement;
-
-        if(swim)
-        {
-            mouseX =  Input.mousePosition.x;
-            
-        if( mouseX > center)
-        {
-            rightleft= stärke;
-        }
-        
-        if( mouseX < center)
-        {
-            rightleft= -stärke;
-        }
-            direct = new Vector3(1,0,0);
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-           swim=true; 
-           
-        }
-        pos = direction.transform.position;
-        kraft = new Vector3(0,-1,0);
-        
-        
+        swim = true;
     }
+
+    if (swim)
+    {
+        mouseX = Input.mousePosition.x;
+
+
+        if (mouseX > center)
+        {
+            rightleft = stärke;
+        }
+        if (mouseX < center)
+        {
+            rightleft = -stärke;
+        }
+        direct = new Vector3(1, 0, 0);
+    }
+
+    float moveX = Input.GetAxis("Horizontal");
+    float moveY = Input.GetAxis("Vertical");
+    Vector3 movement = new Vector3(moveX, moveY, 0) * turnspeed * Time.deltaTime;
+    cursor.transform.position += movement;
+
+    pos = direction.transform.position;
+    kraft = new Vector3(0, -1, 0);
+}
+
     private void FixedUpdate()
     {
-        if(swim)
+        if (swim)
         {
-        rb.AddForce(pos*forceStrenght);
-        rb.AddForce(kraft*gravity);
-        rb.AddForce(direct * rightleft);
+            rb.AddForce(pos * forceStrenght);
+            rb.AddForce(kraft * gravity);
+            rb.AddForce(direct * rightleft);
         }
     }
+
 
 }

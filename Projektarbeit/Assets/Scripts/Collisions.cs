@@ -11,9 +11,11 @@ public class Collisions : MonoBehaviour
     public float counter = 0f;
     public TextMeshProUGUI counterText;
     public Vector3 startPosition;
+    public ArrowControler arrowScript;
 
     void Start()
     {
+        arrowScript = GameObject.Find("Arr").GetComponent<ArrowControler>();
         playerRb = GetComponent<Rigidbody>();
         startPosition = transform.position;
         UpdateCounterText();
@@ -33,10 +35,14 @@ public class Collisions : MonoBehaviour
 
     private void ResetDart()
     {
-        playerRb.velocity = Vector3.zero;
-        playerRb.angularVelocity = Vector3.zero;
-        transform.position = startPosition;
-        transform.rotation = Quaternion.identity;
+        arrowScript.swim = false;
+
+        playerRb.transform.position = startPosition;
+        playerRb.transform.rotation = Quaternion.identity;
+
+        playerRb.velocity = Vector3.zero;  
+        playerRb.angularVelocity = Vector3.zero; 
+
     }
 
     public void UpdateCounterText()
