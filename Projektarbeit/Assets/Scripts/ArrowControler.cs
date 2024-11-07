@@ -24,7 +24,6 @@ public class ArrowControler : MonoBehaviour
     public GameObject arrow;
     private float center;
     private float  boarder = 750.0f;
-   
 
     void Start()
     {
@@ -67,11 +66,16 @@ public class ArrowControler : MonoBehaviour
         {
            swim=true;
            cursor.gameObject.SetActive(false);
+           powerBar.siliderpos =false;
+           
            
         }
         pos = direction.transform.position;
         kraft = new Vector3(0,-1,0);
-        
+        if(!powerBar.siliderpos)
+        {
+            forceStrenght= powerBar.poweranzahl;
+        }
         
     }
     private void FixedUpdate()
