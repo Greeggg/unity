@@ -65,7 +65,8 @@ public class ArrowControler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-           swim=true; 
+           swim=true;
+           cursor.gameObject.SetActive(false);
            
         }
         pos = direction.transform.position;
