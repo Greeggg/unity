@@ -41,6 +41,12 @@ void Update()
     if (Input.GetKeyDown(KeyCode.Space))
     {
         swim = true;
+        powerBar.siliderpos=false;
+        cursor.gameObject.SetActive(false);
+    }
+    if (!powerBar.siliderpos)
+    {
+        forceStrenght=powerBar.poweranzahl;
     }
 
     if (swim)
