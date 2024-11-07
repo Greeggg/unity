@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GuiManager : MonoBehaviour
 {
+    Rigidbody playerRb;
     public Button startbutton;
     public Button exitbutton;
     public Button homebutton;
@@ -15,6 +16,7 @@ public class GuiManager : MonoBehaviour
     public Button closebutton;
     public Button infobuttondg;
     public Button closebuttondg;
+    public Button restartbutton;
 
     public GameObject titleScreen;
     public GameObject duringGameScreen;
@@ -22,11 +24,19 @@ public class GuiManager : MonoBehaviour
     public GameObject infoPanel;
     public GameObject infoPaneldg;
 
+    public Vector3 startPosition;
+
+    public Collisions collisionsScript; 
+
     private bool isPaused = false;
     private bool isInGame = false;
+    private bool canLaunch = false;
 
     void StartGame()
     {
+        playerRb.transform.position = startPosition;
+        playerRb.transform.rotation = Quaternion.identity;
+
         titleScreen.gameObject.SetActive(false);
         gameOverScreen.gameObject.SetActive(false);
         duringGameScreen.gameObject.SetActive(true);
@@ -34,12 +44,15 @@ public class GuiManager : MonoBehaviour
         infoPaneldg.gameObject.SetActive(false);
         continuebutton.gameObject.SetActive(false);
         isInGame = true;
+        canLaunch = true;
         Time.timeScale = 1;
-
     }
-    
+
     void ExitFunction()
     {
+        playerRb.transform.position = startPosition;
+        playerRb.transform.rotation = Quaternion.identity;
+
         duringGameScreen.gameObject.SetActive(false);
         titleScreen.gameObject.SetActive(true);
         isInGame = false;
@@ -54,7 +67,7 @@ public class GuiManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-void InfoScreen()
+    void InfoScreen()
     {
         if (isInGame)
         {
@@ -98,7 +111,6 @@ void InfoScreen()
         isPaused = true;
     }
 
-
     void ContinueGame()
     {
         Time.timeScale = 1;
@@ -107,21 +119,41 @@ void InfoScreen()
         isPaused = false;
     }
 
-
     void RestartFunction()
     {
         gameOverScreen.gameObject.SetActive(false);
         duringGameScreen.gameObject.SetActive(true);
         isInGame = true;
+        RestartGame();
+    }
+
+    void RestartGame()
+    {
+        playerRb.transform.position = startPosition;
+        playerRb.transform.rotation = Quaternion.identity;
+
+        playerRb.velocity = Vector3.zero;
+        playerRb.angularVelocity = Vector3.zero;
+
+        collisionsScript.counter = 0;
+        collisionsScript.UpdateCounterText();
+
+        canLaunch = true;
+
+
+        gameOverScreen.gameObject.SetActive(false);
+        duringGameScreen.gameObject.SetActive(true);
+        Time.timeScale = 1;
     }
 
 
 
-
-
-    // Start is called before the first frame update
     void Start()
     {
+        playerRb = GameObject.Find("Arr").GetComponent<Rigidbody>();
+        startPosition = playerRb.transform.position; 
+        collisionsScript = GameObject.Find("Arr").GetComponent<Collisions>();
+
         titleScreen.gameObject.SetActive(true);
         infoPanel.gameObject.SetActive(false);
         infoPaneldg.gameObject.SetActive(false);
@@ -130,10 +162,10 @@ void InfoScreen()
 
         startbutton = startbutton.GetComponent<Button>();
         startbutton.onClick.AddListener(StartGame);
-    
+
         exitbutton = exitbutton.GetComponent<Button>();
         exitbutton.onClick.AddListener(ExitFunction);
- 
+
         homebutton = homebutton.GetComponent<Button>();
         homebutton.onClick.AddListener(HomeFunction);
 
@@ -155,6 +187,9 @@ void InfoScreen()
         closebuttondg = closebuttondg.GetComponent<Button>();
         closebuttondg.onClick.AddListener(CloseInfoScreen);
 
+        restartbutton = restartbutton.GetComponent<Button>();
+        restartbutton.onClick.AddListener(RestartGame);
+
         continuebutton = continuebutton.GetComponent<Button>();
         continuebutton.onClick.AddListener(ContinueGame);
         continuebutton.gameObject.SetActive(false);
@@ -162,7 +197,6 @@ void InfoScreen()
 
     void Update()
     {
-        
-    }
 
+    }
 }
