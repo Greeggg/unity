@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GuiManager : MonoBehaviour
 {
@@ -17,14 +18,21 @@ public class GuiManager : MonoBehaviour
     public Button infobuttondg;
     public Button closebuttondg;
     public Button restartbutton;
-    
-    public GameObject menuPanel;
+
+    public TMP_Dropdown difficultyDropdown; 
     public GameObject titleScreen;
     public GameObject duringGameScreen;
     public GameObject gameOverScreen;
     public GameObject infoPanel;
     public GameObject infoPaneldg;
+    public GameObject menuPanel;
+<<<<<<< Updated upstream
+    public GameObject powerBar;
+    public GameObject slider;
+    public GameObject ziel;
+=======
 
+>>>>>>> Stashed changes
     public Vector3 startPosition;
 
     public Collisions collisionsScript; 
@@ -43,10 +51,17 @@ public class GuiManager : MonoBehaviour
         duringGameScreen.gameObject.SetActive(true);
         infoPanel.gameObject.SetActive(false);
         infoPaneldg.gameObject.SetActive(false);
+<<<<<<< Updated upstream
         continuebutton.gameObject.SetActive(true);
+=======
+>>>>>>> Stashed changes
         menuPanel.gameObject.SetActive(false);
         isInGame = true;
+        difficultyDropdown.gameObject.SetActive(false);
         Time.timeScale = 1;
+        powerBar.SetActive(true);
+        slider.SetActive(true);
+        ziel.SetActive(true);
     }
 
     void ExitFunction()
@@ -61,8 +76,11 @@ public class GuiManager : MonoBehaviour
         collisionsScript.counter = 0;
         collisionsScript.UpdateCounterText();
 
+        menuPanel.gameObject.SetActive(false);
+
         duringGameScreen.gameObject.SetActive(false);
         titleScreen.gameObject.SetActive(true);
+        difficultyDropdown.gameObject.SetActive(true);
         isInGame = false;
         Time.timeScale = 1;
     }
@@ -75,19 +93,24 @@ public class GuiManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    void InfoScreen()
+        void InfoScreen()
     {
         if (isInGame)
         {
             infoPaneldg.gameObject.SetActive(true);
-            menuPanel.gameObject.SetActive(false);
             Time.timeScale = 0;
             isPaused = true;
+            menuPanel.gameObject.SetActive(false);
+<<<<<<< Updated upstream
+            difficultyDropdown.gameObject.SetActive(false);  // Dropdown ausblenden
+=======
+>>>>>>> Stashed changes
         }
         else
         {
             infobutton.gameObject.SetActive(false);
             infoPanel.gameObject.SetActive(true);
+            difficultyDropdown.gameObject.SetActive(false);  
         }
     }
 
@@ -95,42 +118,53 @@ public class GuiManager : MonoBehaviour
     {
         if (isInGame)
         {
-            menuPanel.gameObject.SetActive(true);
             infoPaneldg.gameObject.SetActive(false);
+<<<<<<< Updated upstream
             infobuttondg.gameObject.SetActive(true);
+            Time.timeScale = 0;
+=======
+            menuPanel.gameObject.SetActive(true);
             Time.timeScale = 1;
+>>>>>>> Stashed changes
             pausebutton.gameObject.SetActive(true);
-            exitbutton.gameObject.SetActive(true);
             isPaused = false;
+            menuPanel.gameObject.SetActive(true);
+            difficultyDropdown.gameObject.SetActive(true);  
+
         }
         else
         {
             infobutton.gameObject.SetActive(true);
             infoPanel.gameObject.SetActive(false);
+            difficultyDropdown.gameObject.SetActive(true);  
         }
     }
 
     void PauseGame()
     {
         Time.timeScale = 0;
-        isPaused = true;
         menuPanel.gameObject.SetActive(true);
+        isPaused = true;
 
     }
 
     void ContinueGame()
     {
         Time.timeScale = 1;
-        isPaused = false;
+<<<<<<< Updated upstream
+=======
+        pausebutton.gameObject.SetActive(true);
+>>>>>>> Stashed changes
         menuPanel.gameObject.SetActive(false);
+        isPaused = false;
     }
 
     void RestartFunction()
     {
         gameOverScreen.gameObject.SetActive(false);
         duringGameScreen.gameObject.SetActive(true);
-        isInGame = true;
         menuPanel.gameObject.SetActive(false);
+        isInGame = true;
         RestartGame();
     }
 
@@ -144,14 +178,19 @@ public class GuiManager : MonoBehaviour
         playerRb.velocity = Vector3.zero;  
         playerRb.angularVelocity = Vector3.zero; 
 
+        menuPanel.gameObject.SetActive(false);
+
         collisionsScript.counter = 0;
         collisionsScript.UpdateCounterText();
 
         menuPanel.gameObject.SetActive(false);
-
         gameOverScreen.gameObject.SetActive(false);
         duringGameScreen.gameObject.SetActive(true);
         Time.timeScale = 1;
+
+        powerBar powerBarScript = powerBar.GetComponent<powerBar>();
+        powerBarScript.ResetPowerBar();
+        ziel.SetActive(true);
     }
 
 
@@ -169,6 +208,11 @@ public class GuiManager : MonoBehaviour
         duringGameScreen.gameObject.SetActive(false);
         gameOverScreen.gameObject.SetActive(false);
         menuPanel.gameObject.SetActive(false);
+<<<<<<< Updated upstream
+        continuebutton.gameObject.SetActive(true);
+
+=======
+>>>>>>> Stashed changes
 
         startbutton = startbutton.GetComponent<Button>();
         startbutton.onClick.AddListener(StartGame);
@@ -200,9 +244,10 @@ public class GuiManager : MonoBehaviour
         restartbutton = restartbutton.GetComponent<Button>();
         restartbutton.onClick.AddListener(RestartGame);
 
+
         continuebutton = continuebutton.GetComponent<Button>();
         continuebutton.onClick.AddListener(ContinueGame);
-        continuebutton.gameObject.SetActive(false);
+
     }
 
     void Update()

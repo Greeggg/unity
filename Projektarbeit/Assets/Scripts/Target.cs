@@ -1,143 +1,174 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Target : MonoBehaviour
 {
+    public float score = 20;  // Der Anfangspunktestand
+    private bool canhit;
+    private float scoreCooldown = 0.1f;
+
 <<<<<<< Updated upstream
-    public float score = 20;
-    private bool canhit;      
-    private float scoreCooldown = 0.1f; 
+    public TextMeshProUGUI pointsText;  // TextMeshProUGUI für die Punkteanzeige
+    public GameObject gameOverScreen;   // Game Over Canvas
 
+    public float detectionRadius = 3f;  // Erkennungsradius für die Ringe
+    public Transform[] rings;  // Alle Ringe als Transform-Array
+    
     void Start()
     {
-        canhit=true;
-=======
-    public float score = 20;  // Anfangspunktestand
-    private bool canhit;      // Verhindert Mehrfach-Treffer
-    private float scoreCooldown = 0.1f;  // Verzögerung für den nächsten Treffer
-    public TextMeshProUGUI pointsText;  // Referenz zum TextMeshProUI-Text
-
-    void Start()
-    {
-        canhit = true;  // Initialisiere canhit auf true
-        UpdateScoreText(); // Zeigt zu Beginn den aktuellen Punktestand an
->>>>>>> Stashed changes
+        canhit = true;
+        gameOverScreen.SetActive(false);  // Game Over Canvas zu Beginn deaktivieren
+        UpdateScoreText();  // Zu Beginn die Punkteanzeige setzen
     }
+
+    void Update()
+    {
+        if (canhit)
+        {
+            // Überprüfe, ob sich der Dart in der Nähe eines Rings befindet
+            foreach (var ring in rings)
+            {
+                float distance = Vector3.Distance(transform.position, ring.position);
+                Debug.Log($"Dart Position: {transform.position}, Ring Position: {ring.position}, Distance: {distance}");
+
+                if (distance <= detectionRadius)  // Wenn der Dart innerhalb des Erkennungsradius ist
+                {
+                    HandleRingHit(ring);  // Die Funktion aufrufen, um Punkte zu zählen
+                    canhit = false;
+                    StartCoroutine(ScoreCooldown());
+                    break;
+                }
+            }
+        }
+    }
+
+    // Funktion zur Behandlung des Treffers eines Rings
+    private void HandleRingHit(Transform ring)
+    {
+        // Überprüfen, welches Tag der Ring hat und den Score anpassen
+        if (ring.CompareTag("ring1") || ring.CompareTag("ring2"))
+        {
+            Debug.Log("Treffer mit ring1 oder ring2");
+            score -= 1;
+        }
+        else if (ring.CompareTag("ring3") || ring.CompareTag("ring4"))
+        {
+            Debug.Log("Treffer mit ring3 oder ring4");
+            score -= 3;
+        }
+        else if (ring.CompareTag("ring5") || ring.CompareTag("ring6"))
+        {
+            Debug.Log("Treffer mit ring5 oder ring6");
+            score -= 5;
+        }
+        else if (ring.CompareTag("ring7"))
+        {
+            Debug.Log("Treffer mit ring7");
+            score -= 10;
+        }
+
+        // Wenn der Score unter 0 fällt, setze ihn auf 0
+        if (score < 0)
+            score = 0;
+
+        UpdateScoreText();  // Aktualisiere die Score-Anzeige
+        CheckGameOver();    // Überprüfe, ob das Spiel vorbei ist
+    }
+
+    private IEnumerator ScoreCooldown()
+    {
+        yield return new WaitForSeconds(scoreCooldown);  // Verzögerung, um Mehrfachzählungen zu vermeiden
+        canhit = true;  // Nach der Verzögerung wieder Kollisionen zulassen
+    }
+
+    // Update der Punkteanzeige im UI
+    private void UpdateScoreText()
+    {
+        pointsText.text = "Score: " + score;  // Den Text des UI-Elements auf den aktuellen Punktestand setzen
+    }
+
+    // Überprüfen, ob das Spiel vorbei ist (wenn der Score 0 oder kleiner ist)
+    private void CheckGameOver()
+    {
+        if (score <= 0)
+        {
+            gameOverScreen.SetActive(true);  // Game Over Canvas aktivieren
+            Time.timeScale = 0;  // Das Spiel pausieren
+        }
+    }
+=======
+    public TextMeshProUGUI pointsText; 
+    private Collisions collisionsScript;
+
+    void Start()
+    {
+        pointsText = GameObject.Find("PointsText").GetComponent<TextMeshProUGUI>();
+        GameObject dart = GameObject.FindWithTag("Arrow");
+        collisionsScript = dart.GetComponent<Collisions>();
+        
+        canhit = true;
+        UpdatePointsText(); 
+    }
+
     void Update()
     {
 
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (canhit)
         {
-<<<<<<< Updated upstream
+
+    
             if (other.CompareTag("ring1"))
             {
-                Debug.Log("ring1");
                 score -= 1;
             }
             else if (other.CompareTag("ring2"))
             {
-                Debug.Log("ring2");
                 score -= 1;
             }
             else if (other.CompareTag("ring3"))
             {
-                Debug.Log("ring3");
                 score -= 3;
             }
             else if (other.CompareTag("ring4"))
             {
-                Debug.Log("ring4");
                 score -= 3;
             }
             else if (other.CompareTag("ring5"))
             {
-                Debug.Log("ring5");
                 score -= 5;
             }
             else if (other.CompareTag("ring6"))
             {
-                Debug.Log("ring6");
                 score -= 5;
             }
             else if (other.CompareTag("ring7"))
             {
-                Debug.Log("ring7");
-=======
-            // Überprüfen, welches Tag der getroffene Ring hat und Punkte abziehen
-            if (other.CompareTag("ring1") || other.CompareTag("ring2"))
-            {
-                Debug.Log("Treffer mit ring1 oder ring2");
-                score -= 1;
-            }
-            else if (other.CompareTag("ring3") || other.CompareTag("ring4"))
-            {
-                Debug.Log("Treffer mit ring3 oder ring4");
-                score -= 3;
-            }
-            else if (other.CompareTag("ring5") || other.CompareTag("ring6"))
-            {
-                Debug.Log("Treffer mit ring5 oder ring6");
-                score -= 5;
-            }
-            else if (other.CompareTag("ring7"))
-            {
-                Debug.Log("Treffer mit ring7");
->>>>>>> Stashed changes
                 score -= 10;
             }
 
-            Debug.Log( score);
+            UpdatePointsText(); 
+            collisionsScript.ResetDart();
+            collisionsScript.counter++; 
+            collisionsScript.UpdateCounterText();
 
-<<<<<<< Updated upstream
-        
             canhit = false;
-=======
-            Debug.Log("Aktueller Punktestand: " + score);  // Log für Debugging
-
-            // Punkteanzeige im UI aktualisieren
-            UpdateScoreText();
-
-            // Verhindern, dass der Pfeil sofort mehrfach zählt
-            canhit = false;
-
-            // Nach einer kurzen Pause erlauben wir den nächsten Treffer
->>>>>>> Stashed changes
-            StartCoroutine(ScoreCooldown());
         }
     }
 
-<<<<<<< Updated upstream
-    // Coroutine to handle the cooldown after the first score
-    private IEnumerator ScoreCooldown()
-    {
-        yield return new WaitForSeconds(scoreCooldown);
-        canhit = true; 
-    }
-}
-=======
-    // Coroutine für die Verzögerung zwischen Treffern
-    private IEnumerator ScoreCooldown()
-    {
-        // Verzögerung abwarten, bevor wieder ein Treffer akzeptiert wird
-        yield return new WaitForSeconds(scoreCooldown);
-        canhit = true;  // Nach der Verzögerung den nächsten Treffer erlauben
-    }
 
-    // Methode zum Aktualisieren der Punktzahl im UI
-    private void UpdateScoreText()
+    private void UpdatePointsText()
     {
         if (pointsText != null)
         {
-            pointsText.text = "Score: " + score;
+            pointsText.text = "Score: " + score.ToString();
         }
-        else
-        {
-            Debug.LogError("pointsText ist nicht zugewiesen!");
-        }
+
     }
-}
 >>>>>>> Stashed changes
+}
