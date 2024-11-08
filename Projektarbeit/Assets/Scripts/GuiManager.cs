@@ -17,7 +17,8 @@ public class GuiManager : MonoBehaviour
     public Button infobuttondg;
     public Button closebuttondg;
     public Button restartbutton;
-
+    
+    public GameObject menuPanel;
     public GameObject titleScreen;
     public GameObject duringGameScreen;
     public GameObject gameOverScreen;
@@ -42,7 +43,8 @@ public class GuiManager : MonoBehaviour
         duringGameScreen.gameObject.SetActive(true);
         infoPanel.gameObject.SetActive(false);
         infoPaneldg.gameObject.SetActive(false);
-        continuebutton.gameObject.SetActive(false);
+        continuebutton.gameObject.SetActive(true);
+        menuPanel.gameObject.SetActive(false);
         isInGame = true;
         Time.timeScale = 1;
     }
@@ -78,10 +80,8 @@ public class GuiManager : MonoBehaviour
         if (isInGame)
         {
             infoPaneldg.gameObject.SetActive(true);
-            infobuttondg.gameObject.SetActive(false);
+            menuPanel.gameObject.SetActive(false);
             Time.timeScale = 0;
-            pausebutton.gameObject.SetActive(false);
-            exitbutton.gameObject.SetActive(false);
             isPaused = true;
         }
         else
@@ -95,6 +95,7 @@ public class GuiManager : MonoBehaviour
     {
         if (isInGame)
         {
+            menuPanel.gameObject.SetActive(true);
             infoPaneldg.gameObject.SetActive(false);
             infobuttondg.gameObject.SetActive(true);
             Time.timeScale = 1;
@@ -112,17 +113,16 @@ public class GuiManager : MonoBehaviour
     void PauseGame()
     {
         Time.timeScale = 0;
-        pausebutton.gameObject.SetActive(false);
-        continuebutton.gameObject.SetActive(true);
         isPaused = true;
+        menuPanel.gameObject.SetActive(true);
+
     }
 
     void ContinueGame()
     {
         Time.timeScale = 1;
-        pausebutton.gameObject.SetActive(true);
-        continuebutton.gameObject.SetActive(false);
         isPaused = false;
+        menuPanel.gameObject.SetActive(false);
     }
 
     void RestartFunction()
@@ -130,6 +130,7 @@ public class GuiManager : MonoBehaviour
         gameOverScreen.gameObject.SetActive(false);
         duringGameScreen.gameObject.SetActive(true);
         isInGame = true;
+        menuPanel.gameObject.SetActive(false);
         RestartGame();
     }
 
@@ -146,6 +147,7 @@ public class GuiManager : MonoBehaviour
         collisionsScript.counter = 0;
         collisionsScript.UpdateCounterText();
 
+        menuPanel.gameObject.SetActive(false);
 
         gameOverScreen.gameObject.SetActive(false);
         duringGameScreen.gameObject.SetActive(true);
@@ -166,6 +168,7 @@ public class GuiManager : MonoBehaviour
         infoPaneldg.gameObject.SetActive(false);
         duringGameScreen.gameObject.SetActive(false);
         gameOverScreen.gameObject.SetActive(false);
+        menuPanel.gameObject.SetActive(false);
 
         startbutton = startbutton.GetComponent<Button>();
         startbutton.onClick.AddListener(StartGame);
