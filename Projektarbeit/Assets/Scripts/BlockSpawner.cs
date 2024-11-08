@@ -3,22 +3,20 @@ using UnityEngine;
 
 public class BlockSpawner : MonoBehaviour
 {
-    public GameObject blockPrefab;         
-    public Transform arrow;                
-    public Transform dartboard;            
-    public float blockSize = 1.0f;         
-    public int numberOfBlocks = 10;        
-    public float spawnOffsetRange = 20.0f; 
+    public GameObject blockPrefab; // Das Prefab für die zu spawnenden Blöcke
+    public Transform arrow;        // Der Pfeil, von dem aus die Blöcke gespawnt werden
+    public int numberOfBlocks = 100;  // Anzahl der zu spawnenden Blöcke
+    public float lineLength = 500.0f; // Gesamtlänge der Linie
+    public float spawnOffsetRange = 200.0f; // Zufällige Abweichung in Einheiten
 
     private List<GameObject> spawnedBlocks = new List<GameObject>();
 
     void Start()
     {
-        SpawnBlocks();
+        SpawnBlocksInLine();
     }
 
-    public void SpawnBlocks()
-
+    public void SpawnBlocksInLine()
     {
         foreach (var block in spawnedBlocks)
         {
@@ -26,48 +24,19 @@ public class BlockSpawner : MonoBehaviour
         }
         spawnedBlocks.Clear(); 
 
-        int spawnedCount = 0;
-        int maxAttempts = numberOfBlocks * 10;
-        int attempts = 0;
+        float spacing = lineLength / (numberOfBlocks - 1); // Abstand zwischen den Blöcken
 
-        while (spawnedCount < numberOfBlocks && attempts < maxAttempts)
+        for (int i = 0; i < numberOfBlocks; i++)
         {
-            Vector3 basePosition = GenerateRandomPositionBetweenArrowAndDartboard();
-            Vector3 offset = new Vector3(
-                Random.Range(-spawnOffsetRange, spawnOffsetRange), 
-                Random.Range(-spawnOffsetRange, spawnOffsetRange),
-                0 
-            );
+            Vector3 position = arrow.position + arrow.forward * (spacing * i);
 
-            Vector3 randomPosition = basePosition + offset;
+            // Füge zufällige Abweichungen in der Position hinzu
+            position.x += Random.Range(-spawnOffsetRange, spawnOffsetRange);
+            position.y += Random.Range(-spawnOffsetRange, spawnOffsetRange);
 
-            if (IsPositionFree(randomPosition))
-            {
-                GameObject newBlock = Instantiate(blockPrefab, randomPosition, Quaternion.identity);
-                spawnedBlocks.Add(newBlock);
-                spawnedCount++;
-            }
+            GameObject newBlock = Instantiate(blockPrefab, position, Quaternion.identity);
+            spawnedBlocks.Add(newBlock);
 
-            attempts++;
         }
-    }
-
-    Vector3 GenerateRandomPositionBetweenArrowAndDartboard()
-    {
-        float t = Random.Range(0f, 1f);
-        Vector3 position = Vector3.Lerp(arrow.position, dartboard.position, t);
-        return position;
-    }
-
-    bool IsPositionFree(Vector3 position)
-    {
-        foreach (GameObject block in spawnedBlocks)
-        {
-            if (Vector3.Distance(position, block.transform.position) < blockSize)
-            {
-                return false;
-            }
-        }
-        return true;
     }
 }

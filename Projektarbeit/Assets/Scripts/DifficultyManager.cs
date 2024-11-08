@@ -29,6 +29,6 @@ public class DifficultyManager : MonoBehaviour
         }
 
 
-        blockSpawner.SpawnBlocks();
+        blockSpawner.SpawnBlocksInLine();
     }
 }
