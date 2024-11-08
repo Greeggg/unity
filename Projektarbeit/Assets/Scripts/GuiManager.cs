@@ -26,9 +26,13 @@ public class GuiManager : MonoBehaviour
     public GameObject infoPanel;
     public GameObject infoPaneldg;
     public GameObject menuPanel;
+<<<<<<< Updated upstream
     public GameObject powerBar;
     public GameObject slider;
     public GameObject ziel;
+=======
+
+>>>>>>> Stashed changes
     public Vector3 startPosition;
 
     public Collisions collisionsScript; 
@@ -47,7 +51,10 @@ public class GuiManager : MonoBehaviour
         duringGameScreen.gameObject.SetActive(true);
         infoPanel.gameObject.SetActive(false);
         infoPaneldg.gameObject.SetActive(false);
+<<<<<<< Updated upstream
         continuebutton.gameObject.SetActive(true);
+=======
+>>>>>>> Stashed changes
         menuPanel.gameObject.SetActive(false);
         isInGame = true;
         difficultyDropdown.gameObject.SetActive(false);
@@ -91,13 +98,13 @@ public class GuiManager : MonoBehaviour
         if (isInGame)
         {
             infoPaneldg.gameObject.SetActive(true);
-            infobuttondg.gameObject.SetActive(false);
             Time.timeScale = 0;
-            pausebutton.gameObject.SetActive(false);
-            exitbutton.gameObject.SetActive(false);
             isPaused = true;
             menuPanel.gameObject.SetActive(false);
+<<<<<<< Updated upstream
             difficultyDropdown.gameObject.SetActive(false);  // Dropdown ausblenden
+=======
+>>>>>>> Stashed changes
         }
         else
         {
@@ -112,10 +119,14 @@ public class GuiManager : MonoBehaviour
         if (isInGame)
         {
             infoPaneldg.gameObject.SetActive(false);
+<<<<<<< Updated upstream
             infobuttondg.gameObject.SetActive(true);
             Time.timeScale = 0;
+=======
+            menuPanel.gameObject.SetActive(true);
+            Time.timeScale = 1;
+>>>>>>> Stashed changes
             pausebutton.gameObject.SetActive(true);
-            exitbutton.gameObject.SetActive(true);
             isPaused = false;
             menuPanel.gameObject.SetActive(true);
             difficultyDropdown.gameObject.SetActive(true);  
@@ -140,6 +151,10 @@ public class GuiManager : MonoBehaviour
     void ContinueGame()
     {
         Time.timeScale = 1;
+<<<<<<< Updated upstream
+=======
+        pausebutton.gameObject.SetActive(true);
+>>>>>>> Stashed changes
         menuPanel.gameObject.SetActive(false);
         isPaused = false;
     }
@@ -168,7 +183,7 @@ public class GuiManager : MonoBehaviour
         collisionsScript.counter = 0;
         collisionsScript.UpdateCounterText();
 
-
+        menuPanel.gameObject.SetActive(false);
         gameOverScreen.gameObject.SetActive(false);
         duringGameScreen.gameObject.SetActive(true);
         Time.timeScale = 1;
@@ -193,8 +208,11 @@ public class GuiManager : MonoBehaviour
         duringGameScreen.gameObject.SetActive(false);
         gameOverScreen.gameObject.SetActive(false);
         menuPanel.gameObject.SetActive(false);
+<<<<<<< Updated upstream
         continuebutton.gameObject.SetActive(true);
 
+=======
+>>>>>>> Stashed changes
 
         startbutton = startbutton.GetComponent<Button>();
         startbutton.onClick.AddListener(StartGame);
@@ -229,7 +247,7 @@ public class GuiManager : MonoBehaviour
 
         continuebutton = continuebutton.GetComponent<Button>();
         continuebutton.onClick.AddListener(ContinueGame);
-        continuebutton.gameObject.SetActive(false);
+
     }
 
     void Update()

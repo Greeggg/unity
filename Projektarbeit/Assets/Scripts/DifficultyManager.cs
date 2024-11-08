@@ -17,15 +17,15 @@ public class DifficultyManager : MonoBehaviour
     {
         if (index == 0) 
         {
-            blockSpawner.numberOfBlocks = 20;  
+            blockSpawner.numberOfBlocks = 50;  
         }
         else if (index == 1) 
         {
-            blockSpawner.numberOfBlocks = 50; 
+            blockSpawner.numberOfBlocks = 100; 
         }
         else if (index == 2) 
         {
-            blockSpawner.numberOfBlocks = 100; 
+            blockSpawner.numberOfBlocks = 200; 
         }
 
 

@@ -55,7 +55,11 @@ public class Collisions : MonoBehaviour
         }
     }
 
+<<<<<<< Updated upstream
     private IEnumerator ResetDart()
+=======
+    public void ResetDart()
+>>>>>>> Stashed changes
     {
         isResetting = true;
         arrowScript.swim = false;
