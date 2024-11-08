@@ -7,6 +7,13 @@ TagManager:
   - Direction
   - Board
   - Obstacle
+  - ring1
+  - ring2
+  - ring3
+  - ring4
+  - ring5
+  - ring6
+  - ring7
   layers:
   - Default
   - TransparentFX
