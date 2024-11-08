@@ -1,68 +1,99 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class Target : MonoBehaviour
 {
-    public float score = 20;
+    public float score = 20;  // Der Anfangspunktestand
     private bool canhit;
     private float scoreCooldown = 0.1f;
+
     public TextMeshProUGUI pointsText;  // TextMeshProUGUI für die Punkteanzeige
     public GameObject gameOverScreen;   // Game Over Canvas
 
+    public float detectionRadius = 3f;  // Erkennungsradius für die Ringe
+    public Transform[] rings;  // Alle Ringe als Transform-Array
+    
     void Start()
     {
         canhit = true;
-        gameOverScreen.SetActive(false);  // Canvas zu Beginn deaktivieren
+        gameOverScreen.SetActive(false);  // Game Over Canvas zu Beginn deaktivieren
         UpdateScoreText();  // Zu Beginn die Punkteanzeige setzen
     }
 
-    private void OnTriggerEnter(Collider other)
+    void Update()
     {
         if (canhit)
         {
-            Debug.Log("Kollision erkannt mit: " + other.gameObject.name); // Zum Debuggen
+            // Überprüfe, ob sich der Dart in der Nähe eines Rings befindet
+            foreach (var ring in rings)
+            {
+                float distance = Vector3.Distance(transform.position, ring.position);
+                Debug.Log($"Dart Position: {transform.position}, Ring Position: {ring.position}, Distance: {distance}");
 
-            // Überprüfen, welcher Ring getroffen wurde und den Punktestand anpassen
-            if (other.CompareTag("ring1") || other.CompareTag("ring2"))
-                score -= 1;
-            else if (other.CompareTag("ring3") || other.CompareTag("ring4"))
-                score -= 3;
-            else if (other.CompareTag("ring5") || other.CompareTag("ring6"))
-                score -= 5;
-            else if (other.CompareTag("ring7"))
-                score -= 10;
-
-            // Wenn der Score unter 0 fällt, setze ihn auf 0
-            if (score < 0)
-                score = 0;
-
-            UpdateScoreText();  // Score-Anzeige aktualisieren
-            CheckGameOver();    // Überprüfen, ob das Spiel vorbei ist
-            canhit = false;     // Kollisionen für kurze Zeit deaktivieren
-            StartCoroutine(ScoreCooldown());  // Verzögerung einbauen, um mehrfaches Zählen zu verhindern
+                if (distance <= detectionRadius)  // Wenn der Dart innerhalb des Erkennungsradius ist
+                {
+                    HandleRingHit(ring);  // Die Funktion aufrufen, um Punkte zu zählen
+                    canhit = false;
+                    StartCoroutine(ScoreCooldown());
+                    break;
+                }
+            }
         }
+    }
+
+    // Funktion zur Behandlung des Treffers eines Rings
+    private void HandleRingHit(Transform ring)
+    {
+        // Überprüfen, welches Tag der Ring hat und den Score anpassen
+        if (ring.CompareTag("ring1") || ring.CompareTag("ring2"))
+        {
+            Debug.Log("Treffer mit ring1 oder ring2");
+            score -= 1;
+        }
+        else if (ring.CompareTag("ring3") || ring.CompareTag("ring4"))
+        {
+            Debug.Log("Treffer mit ring3 oder ring4");
+            score -= 3;
+        }
+        else if (ring.CompareTag("ring5") || ring.CompareTag("ring6"))
+        {
+            Debug.Log("Treffer mit ring5 oder ring6");
+            score -= 5;
+        }
+        else if (ring.CompareTag("ring7"))
+        {
+            Debug.Log("Treffer mit ring7");
+            score -= 10;
+        }
+
+        // Wenn der Score unter 0 fällt, setze ihn auf 0
+        if (score < 0)
+            score = 0;
+
+        UpdateScoreText();  // Aktualisiere die Score-Anzeige
+        CheckGameOver();    // Überprüfe, ob das Spiel vorbei ist
     }
 
     private IEnumerator ScoreCooldown()
     {
-        yield return new WaitForSeconds(scoreCooldown);  // Verzögerung
+        yield return new WaitForSeconds(scoreCooldown);  // Verzögerung, um Mehrfachzählungen zu vermeiden
         canhit = true;  // Nach der Verzögerung wieder Kollisionen zulassen
     }
 
+    // Update der Punkteanzeige im UI
     private void UpdateScoreText()
     {
-        // Aktualisieren des Textes im UI-Element
-        Debug.Log("Aktueller Score: " + score);  // Zum Debuggen
-        pointsText.text = "Score: " + score;
+        pointsText.text = "Score: " + score;  // Den Text des UI-Elements auf den aktuellen Punktestand setzen
     }
 
+    // Überprüfen, ob das Spiel vorbei ist (wenn der Score 0 oder kleiner ist)
     private void CheckGameOver()
     {
-        // Wenn der Score 0 oder kleiner ist, Game Over anzeigen
         if (score <= 0)
         {
-            gameOverScreen.SetActive(true);  // Game Over Screen aktivieren
+            gameOverScreen.SetActive(true);  // Game Over Canvas aktivieren
             Time.timeScale = 0;  // Das Spiel pausieren
         }
     }

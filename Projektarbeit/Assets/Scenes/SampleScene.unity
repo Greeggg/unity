@@ -7327,6 +7327,8 @@ MonoBehaviour:
   score: 20
   pointsText: {fileID: 463660488}
   gameOverScreen: {fileID: 2049848231}
+  detectionRadius: 1
+  rings: []
 --- !u!1 &930154402
 GameObject:
   m_ObjectHideFlags: 0
