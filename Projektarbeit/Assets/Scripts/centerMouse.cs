@@ -4,29 +4,23 @@ using UnityEngine;
 
 public class centerMouse : MonoBehaviour
 {
-    private bool control;
-    // Start is called before the first frame update
+    private bool locked;
     void Start()
     {
         
     }
-
-    // Update is called once per frame
     void Update()
     {
-        if(control)
+        if(locked) 
         {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            control = false;
-        
+            Cursor.lockState = CursorLockMode.None; // Der Cursor kann sich frei bewegen
+            locked = false; // Setzt "locked" auf false, damit dieser Block nicht erneut ausgeführt wird
         }
-          if (Input.GetKeyDown("e"))
+
+        if (Input.GetKeyDown("e"))  // Wenn die Taste "E" gedrückt wird, dann wird ...
         {
-           Cursor.lockState = CursorLockMode.Locked;
-           Cursor.visible = false;
-           control=true;
-           
+            Cursor.lockState = CursorLockMode.Locked;  // Der Cursor in die Mitte des Bildschirms fixiert und kann nicht bewegt werden
+            locked = true; // Setzt "locked" auf true, wodurch der obige Block im nächsten Frame ausgeführt wird
         }
     }
 }
