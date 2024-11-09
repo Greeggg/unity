@@ -4808,7 +4808,7 @@ MonoBehaviour:
   counter: 0
   counterText: {fileID: 2015238795}
   startPosition: {x: 0, y: 0, z: 0}
-  arrowScript: {fileID: 0}
+  arrowScript: {fileID: 244563008}
   powerBar: {fileID: 170457933}
   ziel: {fileID: 1177258108}
   explosion: {fileID: 515712723}
@@ -10738,7 +10738,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &512526443
 RectTransform:
   m_ObjectHideFlags: 0
