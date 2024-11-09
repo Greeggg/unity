@@ -11,6 +11,9 @@ public class Collisions : MonoBehaviour
     public ArrowControler arrowScript;
     public GameObject powerBar;
     public GameObject ziel;
+    public ParticleSystem explosion;  // Reference to the firework particle system
+
+
 
     void Start()
     {
@@ -24,6 +27,8 @@ public class Collisions : MonoBehaviour
     {
         if (collision.collider.CompareTag("Obstacle"))
         {
+            explosion.gameObject.SetActive(true);
+            explosion.Play();
             counter++; 
             UpdateCounterText(); 
 

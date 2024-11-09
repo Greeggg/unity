@@ -29,7 +29,6 @@ public class ArrowControler : MonoBehaviour
         rb=GetComponent<Rigidbody>();  
         direction = GameObject.Find("Direction");
         swim=false;
-        //arrow.transform.Rotate(0,0,90, Space.Self);
         center= Screen.width * 0.5f;
         
     }
@@ -38,10 +37,10 @@ public class ArrowControler : MonoBehaviour
 void Update()
 {
 
-    if (Input.GetKeyDown(KeyCode.Space))
+    if (Input.GetKeyDown(KeyCode.Space)) // Wenn Space gedrückt wird...
     {
-        swim = true;
-        powerBar.siliderpos=false;
+        swim = true;    
+        powerBar.siliderpos=false;      
         cursor.gameObject.SetActive(false);
     }
     if (!powerBar.siliderpos)
