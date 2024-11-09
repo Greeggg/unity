@@ -4439,6 +4439,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 244563006}
     m_Modifications:
+    - target: {fileID: 2387773517637118087, guid: 8f0321563d0cd2040a49a3735073c9b9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2599132401741684158, guid: 8f0321563d0cd2040a49a3735073c9b9, type: 3}
       propertyPath: m_LocalScale.x
       value: 309.78625
@@ -4712,7 +4716,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  forceStrenght: 0.1
+  forceStrength: 0.1
   swim: 0
   cursor: {fileID: 1177258108}
   gravity: 3
@@ -5357,7 +5361,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &288519916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25309,7 +25313,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2.149994, y: -10.644989}
+  m_AnchoredPosition: {x: 2.1500244, y: -10.644989}
   m_SizeDelta: {x: -104.30002, y: -121.310005}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1097325860

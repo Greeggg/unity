@@ -32,6 +32,7 @@ public class Target : MonoBehaviour
 
     void Update()
     {
+        
         if (score <= 0)
         {
             ShowGameOverScreen();
