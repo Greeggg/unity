@@ -21,7 +21,7 @@ public class Collisions : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("Board"))
+        if (collision.collider.CompareTag("Obstacle"))
         {
             counter++; 
             UpdateCounterText(); 
@@ -38,14 +38,12 @@ public class Collisions : MonoBehaviour
 
     public void ResetDartAndUpdate()
     {
-        StartCoroutine(ResetDart());
+        ResetDart();
     }
 
-    public IEnumerator ResetDart()
+    public void ResetDart()
     {
         arrowScript.swim = false;
-
-        yield return new WaitForSeconds(0.5f); 
 
         playerRb.transform.position = startPosition; 
         playerRb.transform.rotation = Quaternion.identity; 

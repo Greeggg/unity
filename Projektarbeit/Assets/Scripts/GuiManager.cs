@@ -80,13 +80,6 @@ public class GuiManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    void HomeFunction()
-    {
-        gameOverScreen.SetActive(false);
-        titleScreen.SetActive(true);
-        isInGame = false;
-        Time.timeScale = 1;
-    }
 
     void InfoScreen()
     {
@@ -137,15 +130,6 @@ public class GuiManager : MonoBehaviour
         isPaused = false;
     }
 
-    void RestartFunction()
-    {
-        gameOverScreen.SetActive(false);
-        duringGameScreen.SetActive(true);
-        menuPanel.SetActive(false);
-        isInGame = true;
-        RestartGame();
-    }
-
     void RestartGame()
     {
         arrowScript.swim = false;
@@ -189,8 +173,8 @@ public class GuiManager : MonoBehaviour
 
         startbutton.onClick.AddListener(StartGame);
         exitbutton.onClick.AddListener(ExitFunction);
-        homebutton.onClick.AddListener(HomeFunction);
-        tryagainbutton.onClick.AddListener(RestartFunction);
+        homebutton.onClick.AddListener(ExitFunction);
+        tryagainbutton.onClick.AddListener(RestartGame);
         pausebutton.onClick.AddListener(PauseGame);
         infobutton.onClick.AddListener(InfoScreen);
         closebutton.onClick.AddListener(CloseInfoScreen);

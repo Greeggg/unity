@@ -6,13 +6,13 @@ public class Target : MonoBehaviour
 {
     public float score = 20;
     private bool canhit;
-    private float scoreCooldown = 0.1f;
+    private float scoreCooldown = 0.01f;
 
     public TextMeshProUGUI pointsText;
     private Collisions collisionsScript;
     public GameObject gameOverScreen;
     public TextMeshProUGUI gameOverText;
-    private ArrowControler arrowScript;  // Referenz auf das ArrowControler-Skript
+    private ArrowControler arrowScript;  
 
     public GameObject powerBar; 
     public GameObject cursor; 
@@ -22,7 +22,7 @@ public class Target : MonoBehaviour
         pointsText = GameObject.Find("PointsText").GetComponent<TextMeshProUGUI>();
         GameObject dart = GameObject.FindWithTag("Arrow");
         collisionsScript = dart.GetComponent<Collisions>();
-        arrowScript = dart.GetComponent<ArrowControler>(); // ArrowControler-Skript korrekt zuweisen
+        arrowScript = dart.GetComponent<ArrowControler>(); 
         gameOverScreen.SetActive(false);
 
         canhit = true;
@@ -70,12 +70,12 @@ public class Target : MonoBehaviour
                 score -= 10;
             }
 
+
             UpdatePointsText();
             collisionsScript.ResetDartAndUpdate(); 
 
             canhit = false;
             StartCoroutine(ResetCanHit());
-            collisionsScript.ResetDart();
             collisionsScript.counter++;
             collisionsScript.UpdateCounterText();
             cursor.gameObject.SetActive(true);

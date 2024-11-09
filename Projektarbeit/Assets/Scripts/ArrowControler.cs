@@ -5,7 +5,7 @@ using UnityEngine;
 public class ArrowControler : MonoBehaviour
 {
     public Rigidbody rb;
-    private float turnspeed = 5.0f;
+    private float turnspeed = 50.0f;
     private float forwardInput;  
     private float winkelInput;
     public float forceStrenght = 0.1f;
