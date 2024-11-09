@@ -1450,7 +1450,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b54c23d597460ff4685e85fa623bb6fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockPrefab: {fileID: 7923683642477107001, guid: 39cd09a5c85b3ff42806402cce8cd16e, type: 3}
+  blockPrefab: {fileID: 2802197892766416931, guid: 3be4ae58e1c80d54ca62971cb54097bf, type: 3}
   arrow: {fileID: 244563006}
   numberOfBlocks: 20
   lineLength: 500
@@ -1786,12 +1786,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9217ee9dafd841c48ba0149f4d0e5bbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitBoard: 0
-  hitObstacle: 0
   counter: 0
   counterText: {fileID: 2015238795}
   startPosition: {x: 0, y: 0, z: 0}
   arrowScript: {fileID: 0}
+  powerBar: {fileID: 170457933}
 --- !u!114 &244563013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1808,6 +1807,8 @@ MonoBehaviour:
   pointsText: {fileID: 1890713952}
   gameOverScreen: {fileID: 2049848231}
   gameOverText: {fileID: 8425848}
+  powerBar: {fileID: 170457933}
+  cursor: {fileID: 1177258108}
 --- !u!1 &265144142
 GameObject:
   m_ObjectHideFlags: 0
@@ -9009,14 +9010,17 @@ MonoBehaviour:
   infobuttondg: {fileID: 982611165}
   closebuttondg: {fileID: 430651442}
   restartbutton: {fileID: 1018918765}
+  difficultyDropdown: {fileID: 1583413290}
   titleScreen: {fileID: 288519915}
   duringGameScreen: {fileID: 1756846907}
   gameOverScreen: {fileID: 2049848231}
   infoPanel: {fileID: 930154402}
   infoPaneldg: {fileID: 674082930}
-  powerBarObject: {fileID: 170457933}
-  startPosition: {x: 0, y: 0, z: 0}
   menuPanel: {fileID: 991070592}
+  powerBar: {fileID: 170457933}
+  slider: {fileID: 1577510360}
+  ziel: {fileID: 1177258108}
+  startPosition: {x: 0, y: 0, z: 0}
   collisionsScript: {fileID: 0}
   arrowScript: {fileID: 0}
 --- !u!114 &925817248
@@ -9034,7 +9038,9 @@ MonoBehaviour:
   score: 20
   pointsText: {fileID: 1890713952}
   gameOverScreen: {fileID: 2049848231}
-  gameOverText: {fileID: 0}
+  gameOverText: {fileID: 8425848}
+  powerBar: {fileID: 0}
+  cursor: {fileID: 0}
 --- !u!1 &930154402
 GameObject:
   m_ObjectHideFlags: 0
