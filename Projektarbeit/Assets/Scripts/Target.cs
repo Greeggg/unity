@@ -7,6 +7,7 @@ public class Target : MonoBehaviour
     public float score = 20;
     private bool canhit;
     private float scoreCooldown = 0.01f;
+    public ParticleSystem fierwork;
 
     public TextMeshProUGUI pointsText;
     private Collisions collisionsScript;
@@ -43,14 +44,24 @@ public class Target : MonoBehaviour
         {
             if (other.CompareTag("ring1"))
             {
+                fierwork.gameObject.SetActive(true);
+                fierwork.Play();
                 score -= 1;
             }
             else if (other.CompareTag("ring2"))
             {
-                score -= 1;
+                fierwork.gameObject.SetActive(true);
+                fierwork.Play();
+                if(score>=2)
+                {
+                    score -= 2;
+
+                }
             }
             else if (other.CompareTag("ring3"))
             {
+                fierwork.gameObject.SetActive(true);
+                fierwork.Play();
                 if(score>=3)
                 {
                     score -= 3;
@@ -58,13 +69,17 @@ public class Target : MonoBehaviour
             }
             else if (other.CompareTag("ring4"))
             {
-                if(score>=3)
+                fierwork.gameObject.SetActive(true);
+                fierwork.Play();
+                if(score>=4)
                 {
-                    score -= 3;
+                    score -= 4;
                 }
             }
             else if (other.CompareTag("ring5"))
             {
+                fierwork.gameObject.SetActive(true);
+                fierwork.Play();
                 if(score>=5)
                 {
                     score -= 5;
@@ -72,13 +87,17 @@ public class Target : MonoBehaviour
             }
             else if (other.CompareTag("ring6"))
             {
-                if(score>=5)
+                fierwork.gameObject.SetActive(true);
+                fierwork.Play();
+                if(score>=7)
                 {
-                    score -= 5;
+                    score -= 7;
                 }
             }
             else if (other.CompareTag("ring7"))
             {
+                fierwork.gameObject.SetActive(true);
+                fierwork.Play();
                 if(score>=11)
                 {
                     score-=10;
