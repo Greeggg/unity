@@ -4495,6 +4495,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: arrow1
       objectReference: {fileID: 0}
+    - target: {fileID: 6713038600334286359, guid: 8f0321563d0cd2040a49a3735073c9b9, type: 3}
+      propertyPath: m_TagString
+      value: Arrow
+      objectReference: {fileID: 0}
     - target: {fileID: 6987507143877607046, guid: 8f0321563d0cd2040a49a3735073c9b9, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
