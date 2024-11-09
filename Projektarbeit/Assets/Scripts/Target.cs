@@ -67,6 +67,7 @@ public class Target : MonoBehaviour
             }
             else if (other.CompareTag("ring7"))
             {
+        
                 score -= 10;
             }
 
