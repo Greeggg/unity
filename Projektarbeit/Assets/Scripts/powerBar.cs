@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class powerBar : MonoBehaviour
 {
-    public float speed = 5f;
+    public float speed = 15f;
     public float limitleft = 0f;
     public float limitright = 30f;
 
