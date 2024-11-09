@@ -14,10 +14,14 @@ public class GuiManager : MonoBehaviour
     public Button pausebutton;
     public Button continuebutton;
     public Button infobutton;
-    public Button closebutton;
+    public Button closebuttoncontrol;
     public Button infobuttondg;
-    public Button closebuttondg;
+    public Button closebuttoncontroldg;
     public Button restartbutton;
+    public Button htpbutton;
+    public Button htpbuttondg;
+    public Button closebuttonhtp;
+    public Button closebuttonhtpdg;
 
     public TMP_Dropdown difficultyDropdown;
     public GameObject titleScreen;
@@ -29,6 +33,8 @@ public class GuiManager : MonoBehaviour
     public GameObject powerBar;
     public GameObject slider;
     public GameObject ziel;
+    public GameObject htppanel;
+    public GameObject htppaneldg;
     public Vector3 startPosition;
     public GameObject scorePanel;
     public Collisions collisionsScript;
@@ -58,6 +64,7 @@ public class GuiManager : MonoBehaviour
         targetScript.score = 20;
         targetScript.UpdatePointsText();
         scorePanel.gameObject.SetActive(true);
+        pausebutton.gameObject.SetActive(true);
     }
 
     void ExitFunction()
@@ -88,34 +95,55 @@ public class GuiManager : MonoBehaviour
     {
         if (isInGame)
         {
-            infoPaneldg.SetActive(true);
-            Time.timeScale = 0;
-            isPaused = true;
+            infoPaneldg.SetActive(true);  // Panel explizit aktivieren
             menuPanel.SetActive(false);
+            Time.timeScale = 0;
+            scorePanel.SetActive(false);
+            isPaused = true;
         }
         else
         {
-            infobutton.gameObject.SetActive(false);
             infoPanel.SetActive(true);
             difficultyDropdown.gameObject.SetActive(false);
         }
     }
+
 
     void CloseInfoScreen()
     {
         if (isInGame)
         {
             infoPaneldg.SetActive(false);
+            htppaneldg.SetActive(false);
             menuPanel.SetActive(true);
             Time.timeScale = 1;
             pausebutton.gameObject.SetActive(true);
             isPaused = false;
+            scorePanel.SetActive(true);
         }
         else
         {
             infobutton.gameObject.SetActive(true);
+            htpbutton.gameObject.SetActive(true);
             infoPanel.SetActive(false);
+            htppanel.SetActive(false);
             difficultyDropdown.gameObject.SetActive(true);
+        }
+    }
+    void HtpGame()
+    {
+        if (isInGame)
+        {
+            htppaneldg.SetActive(true);  // Panel explizit aktivieren
+            menuPanel.SetActive(false);
+            Time.timeScale = 0;
+            scorePanel.SetActive(false);
+            isPaused = true;
+        }
+        else
+        {
+            htppanel.SetActive(true);
+            difficultyDropdown.gameObject.SetActive(false);
         }
     }
 
@@ -171,10 +199,12 @@ public class GuiManager : MonoBehaviour
         titleScreen.SetActive(true);
         infoPanel.SetActive(false);
         infoPaneldg.SetActive(false);
+        htppanel.SetActive(false);
+        htppaneldg.SetActive(false);
         duringGameScreen.SetActive(false);
         gameOverScreen.SetActive(false);
         menuPanel.SetActive(false);
-        scorePanel.gameObject.SetActive(true);
+        scorePanel.gameObject.SetActive(false);
 
         startbutton.onClick.AddListener(StartGame);
         exitbutton.onClick.AddListener(ExitFunction);
@@ -182,11 +212,15 @@ public class GuiManager : MonoBehaviour
         tryagainbutton.onClick.AddListener(RestartGame);
         pausebutton.onClick.AddListener(PauseGame);
         infobutton.onClick.AddListener(InfoScreen);
-        closebutton.onClick.AddListener(CloseInfoScreen);
+        closebuttoncontrol.onClick.AddListener(CloseInfoScreen);
         infobuttondg.onClick.AddListener(InfoScreen);
-        closebuttondg.onClick.AddListener(CloseInfoScreen);
+        closebuttoncontroldg.onClick.AddListener(CloseInfoScreen);
         restartbutton.onClick.AddListener(RestartGame);
         continuebutton.onClick.AddListener(ContinueGame);
+        htpbutton.onClick.AddListener(HtpGame);
+        htpbuttondg.onClick.AddListener(HtpGame);
+        closebuttonhtp.onClick.AddListener(CloseInfoScreen);
+        closebuttonhtpdg.onClick.AddListener(CloseInfoScreen);
     }
 
     void Update()
