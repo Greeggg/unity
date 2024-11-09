@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GuiManager : MonoBehaviour
 {
@@ -18,16 +19,21 @@ public class GuiManager : MonoBehaviour
     public Button closebuttondg;
     public Button restartbutton;
 
+    public TMP_Dropdown difficultyDropdown;
     public GameObject titleScreen;
     public GameObject duringGameScreen;
     public GameObject gameOverScreen;
     public GameObject infoPanel;
     public GameObject infoPaneldg;
-
+    public GameObject menuPanel;
+    public GameObject powerBar;
+    public GameObject slider;
+    public GameObject ziel;
     public Vector3 startPosition;
 
-    public Collisions collisionsScript; 
+    public Collisions collisionsScript;
     public ArrowControler arrowScript;
+    public Target targetScript;
 
     private bool isPaused = false;
     private bool isInGame = false;
@@ -37,14 +43,20 @@ public class GuiManager : MonoBehaviour
         playerRb.transform.position = startPosition;
         playerRb.transform.rotation = Quaternion.identity;
 
-        titleScreen.gameObject.SetActive(false);
-        gameOverScreen.gameObject.SetActive(false);
-        duringGameScreen.gameObject.SetActive(true);
-        infoPanel.gameObject.SetActive(false);
-        infoPaneldg.gameObject.SetActive(false);
-        continuebutton.gameObject.SetActive(false);
+        titleScreen.SetActive(false);
+        gameOverScreen.SetActive(false);
+        duringGameScreen.SetActive(true);
+        infoPanel.SetActive(false);
+        infoPaneldg.SetActive(false);
+        menuPanel.SetActive(false);
         isInGame = true;
+        difficultyDropdown.gameObject.SetActive(false);
         Time.timeScale = 1;
+        powerBar.SetActive(true);
+        slider.SetActive(true);
+        ziel.SetActive(true);
+        targetScript.score = 20;
+        targetScript.UpdatePointsText();
     }
 
     void ExitFunction()
@@ -53,22 +65,25 @@ public class GuiManager : MonoBehaviour
         playerRb.transform.position = startPosition;
         playerRb.transform.rotation = Quaternion.identity;
 
-        playerRb.velocity = Vector3.zero;  
-        playerRb.angularVelocity = Vector3.zero; 
+        playerRb.velocity = Vector3.zero;
+        playerRb.angularVelocity = Vector3.zero;
 
         collisionsScript.counter = 0;
         collisionsScript.UpdateCounterText();
 
-        duringGameScreen.gameObject.SetActive(false);
-        titleScreen.gameObject.SetActive(true);
+        menuPanel.SetActive(false);
+
+        duringGameScreen.SetActive(false);
+        titleScreen.SetActive(true);
+        difficultyDropdown.gameObject.SetActive(true);
         isInGame = false;
         Time.timeScale = 1;
     }
 
     void HomeFunction()
     {
-        gameOverScreen.gameObject.SetActive(false);
-        titleScreen.gameObject.SetActive(true);
+        gameOverScreen.SetActive(false);
+        titleScreen.SetActive(true);
         isInGame = false;
         Time.timeScale = 1;
     }
@@ -77,17 +92,16 @@ public class GuiManager : MonoBehaviour
     {
         if (isInGame)
         {
-            infoPaneldg.gameObject.SetActive(true);
-            infobuttondg.gameObject.SetActive(false);
+            infoPaneldg.SetActive(true);
             Time.timeScale = 0;
-            pausebutton.gameObject.SetActive(false);
-            exitbutton.gameObject.SetActive(false);
             isPaused = true;
+            menuPanel.SetActive(false);
         }
         else
         {
             infobutton.gameObject.SetActive(false);
-            infoPanel.gameObject.SetActive(true);
+            infoPanel.SetActive(true);
+            difficultyDropdown.gameObject.SetActive(false);
         }
     }
 
@@ -95,40 +109,39 @@ public class GuiManager : MonoBehaviour
     {
         if (isInGame)
         {
-            infoPaneldg.gameObject.SetActive(false);
-            infobuttondg.gameObject.SetActive(true);
+            infoPaneldg.SetActive(false);
+            menuPanel.SetActive(true);
             Time.timeScale = 1;
             pausebutton.gameObject.SetActive(true);
-            exitbutton.gameObject.SetActive(true);
             isPaused = false;
         }
         else
         {
             infobutton.gameObject.SetActive(true);
-            infoPanel.gameObject.SetActive(false);
+            infoPanel.SetActive(false);
+            difficultyDropdown.gameObject.SetActive(true);
         }
     }
 
     void PauseGame()
     {
         Time.timeScale = 0;
-        pausebutton.gameObject.SetActive(false);
-        continuebutton.gameObject.SetActive(true);
+        menuPanel.SetActive(true);
         isPaused = true;
     }
 
     void ContinueGame()
     {
         Time.timeScale = 1;
-        pausebutton.gameObject.SetActive(true);
-        continuebutton.gameObject.SetActive(false);
+        menuPanel.SetActive(false);
         isPaused = false;
     }
 
     void RestartFunction()
     {
-        gameOverScreen.gameObject.SetActive(false);
-        duringGameScreen.gameObject.SetActive(true);
+        gameOverScreen.SetActive(false);
+        duringGameScreen.SetActive(true);
+        menuPanel.SetActive(false);
         isInGame = true;
         RestartGame();
     }
@@ -140,70 +153,54 @@ public class GuiManager : MonoBehaviour
         playerRb.transform.position = startPosition;
         playerRb.transform.rotation = Quaternion.identity;
 
-        playerRb.velocity = Vector3.zero;  
-        playerRb.angularVelocity = Vector3.zero; 
+        playerRb.velocity = Vector3.zero;
+        playerRb.angularVelocity = Vector3.zero;
+
+        menuPanel.SetActive(false);
 
         collisionsScript.counter = 0;
         collisionsScript.UpdateCounterText();
 
-
-        gameOverScreen.gameObject.SetActive(false);
-        duringGameScreen.gameObject.SetActive(true);
+        gameOverScreen.SetActive(false);
+        duringGameScreen.SetActive(true);
         Time.timeScale = 1;
+        targetScript.score = 20;
+        targetScript.UpdatePointsText();
+
+        powerBar powerBarScript = powerBar.GetComponent<powerBar>();
+        powerBarScript.ResetPowerBar();
+        ziel.SetActive(true);
     }
-
-
 
     void Start()
     {
+        targetScript = GameObject.Find("Arr").GetComponent<Target>();
         playerRb = GameObject.Find("Arr").GetComponent<Rigidbody>();
-        startPosition = playerRb.transform.position; 
+        startPosition = playerRb.transform.position;
         collisionsScript = GameObject.Find("Arr").GetComponent<Collisions>();
         arrowScript = GameObject.Find("Arr").GetComponent<ArrowControler>();
 
-        titleScreen.gameObject.SetActive(true);
-        infoPanel.gameObject.SetActive(false);
-        infoPaneldg.gameObject.SetActive(false);
-        duringGameScreen.gameObject.SetActive(false);
-        gameOverScreen.gameObject.SetActive(false);
+        titleScreen.SetActive(true);
+        infoPanel.SetActive(false);
+        infoPaneldg.SetActive(false);
+        duringGameScreen.SetActive(false);
+        gameOverScreen.SetActive(false);
+        menuPanel.SetActive(false);
 
-        startbutton = startbutton.GetComponent<Button>();
         startbutton.onClick.AddListener(StartGame);
-
-        exitbutton = exitbutton.GetComponent<Button>();
         exitbutton.onClick.AddListener(ExitFunction);
-
-        homebutton = homebutton.GetComponent<Button>();
         homebutton.onClick.AddListener(HomeFunction);
-
-        tryagainbutton = tryagainbutton.GetComponent<Button>();
         tryagainbutton.onClick.AddListener(RestartFunction);
-
-        pausebutton = pausebutton.GetComponent<Button>();
         pausebutton.onClick.AddListener(PauseGame);
-
-        infobutton = infobutton.GetComponent<Button>();
         infobutton.onClick.AddListener(InfoScreen);
-
-        closebutton = closebutton.GetComponent<Button>();
         closebutton.onClick.AddListener(CloseInfoScreen);
-
-        infobuttondg = infobuttondg.GetComponent<Button>();
         infobuttondg.onClick.AddListener(InfoScreen);
-
-        closebuttondg = closebuttondg.GetComponent<Button>();
         closebuttondg.onClick.AddListener(CloseInfoScreen);
-
-        restartbutton = restartbutton.GetComponent<Button>();
         restartbutton.onClick.AddListener(RestartGame);
-
-        continuebutton = continuebutton.GetComponent<Button>();
         continuebutton.onClick.AddListener(ContinueGame);
-        continuebutton.gameObject.SetActive(false);
     }
 
     void Update()
     {
-
     }
 }

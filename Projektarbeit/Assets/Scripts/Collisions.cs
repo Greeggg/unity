@@ -1,17 +1,15 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class Collisions : MonoBehaviour
 {
     Rigidbody playerRb;
-    public bool hitBoard = false;
-    public bool hitObstacle = false;
     public float counter = 0f;
     public TextMeshProUGUI counterText;
     public Vector3 startPosition;
     public ArrowControler arrowScript;
+    public GameObject powerBar;
 
     void Start()
     {
@@ -23,30 +21,41 @@ public class Collisions : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Board") || collision.gameObject.CompareTag("Obstacle"))
+        if (collision.collider.CompareTag("Board"))
         {
-            counter++;
-            UpdateCounterText();
-            hitBoard = collision.gameObject.CompareTag("Board");
-            hitObstacle = collision.gameObject.CompareTag("Obstacle");
-            ResetDart();
+            counter++; 
+            UpdateCounterText(); 
+
+            ResetDartAndUpdate();
+
+            powerBar powerBarScript = powerBar.GetComponent<powerBar>();
+            if (powerBarScript != null)
+            {
+                powerBarScript.ResetPowerBar();
+            }
         }
     }
 
-    private void ResetDart()
+    public void ResetDartAndUpdate()
+    {
+        StartCoroutine(ResetDart());
+    }
+
+    public IEnumerator ResetDart()
     {
         arrowScript.swim = false;
 
-        playerRb.transform.position = startPosition;
-        playerRb.transform.rotation = Quaternion.identity;
+        yield return new WaitForSeconds(0.5f); 
 
+        playerRb.transform.position = startPosition; 
+        playerRb.transform.rotation = Quaternion.identity; 
         playerRb.velocity = Vector3.zero;  
         playerRb.angularVelocity = Vector3.zero; 
-
     }
 
     public void UpdateCounterText()
     {
-        counterText.text = "Versuche: " + counter;
+        if (counterText != null)
+            counterText.text = "Versuche: " + counter;
     }
 }
