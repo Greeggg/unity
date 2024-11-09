@@ -51,24 +51,39 @@ public class Target : MonoBehaviour
             }
             else if (other.CompareTag("ring3"))
             {
-                score -= 3;
+                if(score>=3)
+                {
+                    score -= 3;
+                }
             }
             else if (other.CompareTag("ring4"))
             {
-                score -= 3;
+                if(score>=3)
+                {
+                    score -= 3;
+                }
             }
             else if (other.CompareTag("ring5"))
             {
-                score -= 5;
+                if(score>=5)
+                {
+                    score -= 5;
+                }
             }
             else if (other.CompareTag("ring6"))
             {
-                score -= 5;
+                if(score>=5)
+                {
+                    score -= 5;
+                }
             }
             else if (other.CompareTag("ring7"))
             {
-        
-                score -= 10;
+                if(score>=11)
+                {
+                    score-=10;
+                }
+                    
             }
 
 
@@ -108,7 +123,7 @@ public class Target : MonoBehaviour
     {
         gameOverScreen.SetActive(true);
         Time.timeScale = 0;
-        gameOverText.text = "Versuche: " + collisionsScript.counter.ToString();
+        gameOverText.text = "Attempts: " + collisionsScript.counter.ToString();
     }
 
     public void ResetScore()

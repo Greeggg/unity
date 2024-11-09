@@ -10,6 +10,7 @@ public class Collisions : MonoBehaviour
     public Vector3 startPosition;
     public ArrowControler arrowScript;
     public GameObject powerBar;
+    public GameObject ziel;
 
     void Start()
     {
@@ -33,6 +34,7 @@ public class Collisions : MonoBehaviour
             {
                 powerBarScript.ResetPowerBar();
             }
+            ziel.gameObject.setActive(true);
         }
     }
 
