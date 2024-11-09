@@ -4,6 +4,7 @@ using TMPro;
 
 public class Target : MonoBehaviour
 {
+    public Rigidbody playerRb;
     public float score = 20;
     private bool canhit;
     private float scoreCooldown = 0.01f;
@@ -17,6 +18,7 @@ public class Target : MonoBehaviour
 
     public GameObject powerBar; 
     public GameObject cursor; 
+
 
     void Start()
     {

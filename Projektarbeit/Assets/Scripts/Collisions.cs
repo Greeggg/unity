@@ -4,7 +4,7 @@ using TMPro;
 
 public class Collisions : MonoBehaviour
 {
-    Rigidbody playerRb;
+    public Rigidbody playerRb;
     public float counter = 0f;
     public TextMeshProUGUI counterText;
     public Vector3 startPosition;
