@@ -4804,7 +4804,7 @@ MonoBehaviour:
   counter: 0
   counterText: {fileID: 2015238795}
   startPosition: {x: 0, y: 0, z: 0}
-  arrowScript: {fileID: 0}
+  arrowScript: {fileID: 244563008}
   powerBar: {fileID: 170457933}
   ziel: {fileID: 1177258108}
   explosion: {fileID: 515712723}
@@ -10734,7 +10734,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &512526443
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25309,7 +25309,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2.149994, y: -10.644989}
+  m_AnchoredPosition: {x: 2.1500244, y: -10.644989}
   m_SizeDelta: {x: -104.30002, y: -121.310005}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1097325860
