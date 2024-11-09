@@ -30,7 +30,7 @@ public class GuiManager : MonoBehaviour
     public GameObject slider;
     public GameObject ziel;
     public Vector3 startPosition;
-
+    public GameObject scorePanel;
     public Collisions collisionsScript;
     public ArrowControler arrowScript;
     public Target targetScript;
@@ -57,6 +57,7 @@ public class GuiManager : MonoBehaviour
         ziel.SetActive(true);
         targetScript.score = 20;
         targetScript.UpdatePointsText();
+        scorePanel.gameObject.SetActive(true);
     }
 
     void ExitFunction()
@@ -78,6 +79,8 @@ public class GuiManager : MonoBehaviour
         difficultyDropdown.gameObject.SetActive(true);
         isInGame = false;
         Time.timeScale = 1;
+        scorePanel.gameObject.SetActive(false);
+
     }
 
 
@@ -150,6 +153,7 @@ public class GuiManager : MonoBehaviour
         Time.timeScale = 1;
         targetScript.score = 20;
         targetScript.UpdatePointsText();
+        scorePanel.gameObject.SetActive(true);
 
         powerBar powerBarScript = powerBar.GetComponent<powerBar>();
         powerBarScript.ResetPowerBar();
@@ -170,6 +174,7 @@ public class GuiManager : MonoBehaviour
         duringGameScreen.SetActive(false);
         gameOverScreen.SetActive(false);
         menuPanel.SetActive(false);
+        scorePanel.gameObject.SetActive(true);
 
         startbutton.onClick.AddListener(StartGame);
         exitbutton.onClick.AddListener(ExitFunction);

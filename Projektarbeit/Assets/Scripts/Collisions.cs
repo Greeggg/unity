@@ -34,7 +34,7 @@ public class Collisions : MonoBehaviour
             {
                 powerBarScript.ResetPowerBar();
             }
-            ziel.gameObject.setActive(true);
+            ziel.gameObject.SetActive(true);
         }
     }
 
